@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robot Maze Solver - Tests</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        .test-summary {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .test-summary h2 {
+            margin: 0 0 10px 0;
+            color: #333;
+        }
+
+        .test-summary .passed {
+            color: #10b981;
+            font-weight: bold;
+        }
+
+        .test-summary .failed {
+            color: #ef4444;
+            font-weight: bold;
+        }
+
+        .test-suite {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .test-suite h3 {
+            margin: 0 0 15px 0;
+            color: #555;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 10px;
+        }
+
+        .test-case {
+            padding: 8px 12px;
+            margin: 5px 0;
+            border-radius: 4px;
+        }
+
+        .test-case.passed {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .test-case.failed {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .test-case .icon {
+            font-weight: bold;
+            margin-right: 8px;
+        }
+
+        .test-case .error {
+            margin-top: 5px;
+            padding: 5px 10px;
+            background: rgba(0,0,0,0.1);
+            border-radius: 3px;
+            font-size: 12px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <h1>Robot Maze Solver - Test Suite</h1>
+    <div id="test-output"></div>
+
+    <!-- Load source files -->
+    <script src="../js/maze.js"></script>
+    <script src="../js/robot.js"></script>
+    <script src="../js/renderer.js"></script>
+    <script src="../js/ui.js"></script>
+
+    <!-- Load test framework -->
+    <script src="test-framework.js"></script>
+
+    <!-- Load test files -->
+    <script src="test-cell.js"></script>
+    <script src="test-maze.js"></script>
+    <script src="test-robot.js"></script>
+
+    <!-- Run tests -->
+    <script>
+        window.addEventListener('load', () => {
+            test.run();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robot Maze Solver</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🤖 Robot Maze Solver</h1>
+
+        <div class="controls">
+            <div class="control-group">
+                <label>Maze Size:</label>
+                <input type="number" id="maze-size" min="5" max="100" value="10">
+            </div>
+
+            <div class="control-group">
+                <label>Algorithm:</label>
+                <select id="algorithm">
+                    <option value="prim" selected>Randomized Prim</option>
+                    <option value="backtracking">Recursive Backtracking</option>
+                    <option value="kruskal">Kruskal's Algorithm</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label>Speed: <span id="speed-value">5</span></label>
+                <input type="range" id="speed" min="1" max="100" value="5">
+            </div>
+        </div>
+
+        <div class="buttons">
+            <button id="start-btn">Start</button>
+            <button id="pause-btn" disabled>Pause</button>
+            <button id="reset-btn">Reset</button>
+            <button id="credits-btn">Credits</button>
+            <button id="next-btn" style="display: none;">Next Maze</button>
+        </div>
+
+        <div class="statistics">
+            <span>Steps: <strong id="stat-steps">0</strong></span>
+            <span>Dead Ends: <strong id="stat-deadends">0</strong></span>
+            <span>Backtracks: <strong id="stat-backtracks">0</strong></span>
+            <span>Time: <strong id="stat-time">0.0s</strong></span>
+        </div>
+
+        <div class="canvas-container">
+            <canvas id="maze-canvas" width="800" height="800"></canvas>
+        </div>
+
+        <div id="victory-message" class="victory hidden">
+            <div class="victory-content">
+                <div class="emoji">😊</div>
+                <h2>Congratulations!</h2>
+                <p>The robot found the exit!</p>
+            </div>
+        </div>
+
+        <div id="credits-modal" class="modal hidden">
+            <div class="modal-content">
+                <div class="emoji">👨‍💻</div>
+                <h2>Credits</h2>
+                <p class="credits-author">Made by Max K, 7Y, St Edwards School, 10/2025</p>
+                <div class="credits-description">
+                    <h3>How This Project Was Made:</h3>
+                    <ul>
+                        <li>📝 I wrote down all my ideas for the game (how big the maze should be, what the robot should look like, how it should move)</li>
+                        <li>🤖 I gave these ideas to an AI helper called Claude Code</li>
+                        <li>📋 Claude helped break my big idea into small, easy steps</li>
+                        <li>✅ We worked through each step one at a time, testing to make sure everything worked</li>
+                        <li>🔄 I kept trying the game and telling Claude what to fix until it was perfect</li>
+                        <li>💻 Made in Visual Studio Code (a program for writing code)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/maze.js"></script>
+    <script src="js/robot.js"></script>
+    <script src="js/renderer.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
