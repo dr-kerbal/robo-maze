@@ -55,7 +55,7 @@ class GameController {
 
         // Reset UI
         this.ui.hideVictoryMessage();
-        this.ui.hideNextButton();
+        this.ui.showNextButton(); // Always show Next Maze when not running
         this.ui.unlockSettings();
         this.ui.updateStatistics({ steps: 0, deadEnds: 0, backtrackCount: 0 });
         this.ui.updateTimer(0);
@@ -70,8 +70,9 @@ class GameController {
         this.isRunning = true;
         this.isPaused = false;
 
-        // Lock settings
+        // Lock settings and hide Next button while running
         this.ui.lockSettings();
+        this.ui.hideNextButton();
 
         // Start timer
         this.startTime = Date.now();
