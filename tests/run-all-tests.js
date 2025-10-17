@@ -8,7 +8,8 @@ const tests = [
     'run-backtracking-tests.js',
     'run-kruskal-tests.js',
     'run-robot-tests.js',
-    'run-pathfinding-tests.js'
+    'run-pathfinding-tests.js',
+    'run-robot-algorithms-tests.js'
 ];
 
 console.log('==========================================');

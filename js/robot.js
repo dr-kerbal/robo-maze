@@ -1,8 +1,9 @@
 class Robot {
-    constructor(startRow, startCol, initialDirection = 'up') {
+    constructor(startRow, startCol, initialDirection = 'up', algorithm = 'left') {
         this.row = startRow;
         this.col = startCol;
         this.direction = initialDirection;
+        this.algorithm = algorithm; // 'left', 'right', 'forward', 'random'
         this.visitedCells = new Set();
         this.currentPath = [];
         this.deadEnds = 0;
@@ -97,10 +98,11 @@ class Robot {
         this.visitedCells.add(`${row},${col}`);
     }
 
-    reset(startRow, startCol, initialDirection = 'up') {
+    reset(startRow, startCol, initialDirection = 'up', algorithm = 'left') {
         this.row = startRow;
         this.col = startCol;
         this.direction = initialDirection;
+        this.algorithm = algorithm;
         this.visitedCells.clear();
         this.currentPath = [];
         this.deadEnds = 0;
@@ -118,31 +120,70 @@ class Robot {
     }
 
     getNextDirection(maze) {
-        // True left-hand wall following
-        // Priority: Left → Forward → Right → Back
-
         const left = this.getLeftDirection();
         const forward = this.direction;
         const right = this.getRightDirection();
         const back = this.getBackDirection();
 
-        // Try left first
-        if (this.canMove(left, maze)) {
-            return left;
+        // Choose algorithm strategy
+        switch (this.algorithm) {
+            case 'left':
+                return this.getNextDirectionLeft(maze, left, forward, right, back);
+            case 'right':
+                return this.getNextDirectionRight(maze, left, forward, right, back);
+            case 'forward':
+                return this.getNextDirectionForward(maze, left, forward, right, back);
+            case 'random':
+                return this.getNextDirectionRandom(maze, left, forward, right, back);
+            default:
+                return this.getNextDirectionLeft(maze, left, forward, right, back);
         }
+    }
 
-        // Try forward
-        if (this.canMove(forward, maze)) {
-            return forward;
-        }
-
-        // Try right
-        if (this.canMove(right, maze)) {
-            return right;
-        }
-
-        // Must go back (dead end)
+    getNextDirectionLeft(maze, left, forward, right, back) {
+        // Left-hand wall following
+        // Priority: Left → Forward → Right → Back
+        if (this.canMove(left, maze)) return left;
+        if (this.canMove(forward, maze)) return forward;
+        if (this.canMove(right, maze)) return right;
         return back;
+    }
+
+    getNextDirectionRight(maze, left, forward, right, back) {
+        // Right-hand wall following
+        // Priority: Right → Forward → Left → Back
+        if (this.canMove(right, maze)) return right;
+        if (this.canMove(forward, maze)) return forward;
+        if (this.canMove(left, maze)) return left;
+        return back;
+    }
+
+    getNextDirectionForward(maze, left, forward, right, back) {
+        // Simple forward preference
+        // Priority: Forward → Right → Left → Back
+        // NOTE: This can get stuck in loops on some maze configurations (known limitation)
+        if (this.canMove(forward, maze)) return forward;
+        if (this.canMove(right, maze)) return right;
+        if (this.canMove(left, maze)) return left;
+        return back;
+    }
+
+    getNextDirectionRandom(maze, left, forward, right, back) {
+        // Random walk - choose randomly from available directions
+        const availableDirections = [];
+
+        if (this.canMove(left, maze)) availableDirections.push(left);
+        if (this.canMove(forward, maze)) availableDirections.push(forward);
+        if (this.canMove(right, maze)) availableDirections.push(right);
+
+        // If no available directions, must backtrack
+        if (availableDirections.length === 0) {
+            return back;
+        }
+
+        // Randomly choose from available directions
+        const randomIndex = Math.floor(Math.random() * availableDirections.length);
+        return availableDirections[randomIndex];
     }
 
     determineInitialDirection(maze) {

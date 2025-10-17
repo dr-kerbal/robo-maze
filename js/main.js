@@ -5,7 +5,7 @@ class GameController {
         this.renderer = null;
         this.ui = null;
 
-        this.speed = 5; // 1-10
+        this.speed = 5; // 1-100
         this.isPaused = false;
         this.isRunning = false;
         this.startTime = 0;
@@ -14,6 +14,7 @@ class GameController {
 
         this.mazeSize = 10;
         this.algorithm = 'prim';
+        this.robotAlgorithm = 'left';
     }
 
     initialize() {
@@ -25,6 +26,7 @@ class GameController {
         const settings = this.ui.getInputValues();
         this.mazeSize = settings.mazeSize;
         this.algorithm = settings.algorithm;
+        this.robotAlgorithm = settings.robotAlgorithm;
         this.speed = settings.speed;
 
         // Initialize renderer
@@ -43,8 +45,8 @@ class GameController {
         this.maze = new Maze(this.mazeSize, this.algorithm);
         this.maze.generate(this.algorithm);
 
-        // Create robot
-        this.robot = new Robot(this.maze.startCell.row, this.maze.startCell.col);
+        // Create robot with selected algorithm
+        this.robot = new Robot(this.maze.startCell.row, this.maze.startCell.col, 'up', this.robotAlgorithm);
         this.robot.determineInitialDirection(this.maze);
 
         // Render
@@ -100,8 +102,8 @@ class GameController {
     reset() {
         this.stop();
 
-        // Reset robot
-        this.robot.reset(this.maze.startCell.row, this.maze.startCell.col);
+        // Reset robot with current algorithm
+        this.robot.reset(this.maze.startCell.row, this.maze.startCell.col, 'up', this.robotAlgorithm);
         this.robot.determineInitialDirection(this.maze);
 
         // Reset maze cell states
@@ -201,6 +203,13 @@ class GameController {
 
     setAlgorithm(algorithm) {
         this.algorithm = algorithm;
+        if (!this.isRunning) {
+            this.generateNewMaze();
+        }
+    }
+
+    setRobotAlgorithm(algorithm) {
+        this.robotAlgorithm = algorithm;
         if (!this.isRunning) {
             this.generateNewMaze();
         }

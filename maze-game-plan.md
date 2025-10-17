@@ -27,20 +27,40 @@ A web-based game where a robot navigates through randomly generated mazes using 
 - **Movement**: Smooth sliding animation between cells
 - **Visual Style**: Simple emoji initially, 8-bit retro sprite design for future enhancement
 
-### 3. Pathfinding Algorithm (True Left-Hand Wall Following)
+### 3. Pathfinding Algorithms
+The robot supports **four different pathfinding strategies**, selectable via dropdown:
+
+#### Left-Hand Rule (Default)
 **Algorithm**: Always keep your "left hand on the wall" - this guarantees finding the exit in any maze with one solution.
 
-**Priority order for exploration** (checked every step):
-1. **Left** (turn left relative to current direction and check if can move)
-2. **Forward** (continue in current direction if can move)
-3. **Right** (turn right relative to current direction and check if can move)
-4. **Backward** (turn 180° - dead end, must backtrack)
-
-**How it works**:
+**Priority order**: Left → Forward → Right → Back
 - At each cell, robot first attempts to turn left and move
 - If left is blocked, try moving forward
 - If forward is blocked, try turning right and moving
 - If all three are blocked, it's a dead end - turn around and backtrack
+
+#### Right-Hand Rule
+**Algorithm**: Mirror of left-hand rule - keeps "right hand on the wall"
+
+**Priority order**: Right → Forward → Left → Back
+- Guaranteed to find exit in any perfect maze
+- May explore different paths than left-hand rule
+
+#### Forward Preference
+**Algorithm**: Prefers to move forward when possible
+
+**Priority order**: Forward → Right → Left → Back
+- More direct but may get stuck in loops on certain maze configurations
+- Uses loop detection to break out of cycles
+- **Known Limitation**: May fail on some maze layouts
+
+#### Random Walk
+**Algorithm**: Randomly chooses from available directions
+
+**Behavior**: Random selection from non-walled directions, backtracks when stuck
+- Unpredictable exploration pattern
+- Eventually finds exit but path length varies greatly
+- Useful for demonstrating different solving approaches
 
 ### 4. Visual Feedback
 - **Walls**: Thick black blocks
@@ -56,7 +76,9 @@ A web-based game where a robot navigates through randomly generated mazes using 
 ### 5. User Controls
 - **Maze Size Input**: Numeric input (min: 5, max: 100)
   - Locked during exploration (disabled when robot is running)
-- **Algorithm Selector**: Dropdown menu (Randomized Prim, Recursive Backtracking, Kruskal)
+- **Maze Generation Algorithm Selector**: Dropdown menu (Randomized Prim, Recursive Backtracking, Kruskal)
+  - Locked during exploration (disabled when robot is running)
+- **Robot Pathfinding Algorithm Selector**: Dropdown menu (Left-Hand Rule, Right-Hand Rule, Forward Preference, Random Walk)
   - Locked during exploration (disabled when robot is running)
 - **Speed Control**: Slider (1-100, where 1=slowest at 1 step/second, 100=fastest at 100 steps/second)
   - Range: 1 step/sec (1000ms delay) to 100 steps/sec (10ms delay)

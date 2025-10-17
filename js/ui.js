@@ -3,6 +3,7 @@ class UIController {
         this.elements = {
             mazeSize: document.getElementById('maze-size'),
             algorithm: document.getElementById('algorithm'),
+            robotAlgorithm: document.getElementById('robot-algorithm'),
             speed: document.getElementById('speed'),
             speedValue: document.getElementById('speed-value'),
             startBtn: document.getElementById('start-btn'),
@@ -39,6 +40,11 @@ class UIController {
         this.elements.algorithm.addEventListener('change', () => {
             const algo = this.elements.algorithm.value;
             this.gameController.setAlgorithm(algo);
+        });
+
+        this.elements.robotAlgorithm.addEventListener('change', () => {
+            const robotAlgo = this.elements.robotAlgorithm.value;
+            this.gameController.setRobotAlgorithm(robotAlgo);
         });
 
         this.elements.speed.addEventListener('input', () => {
@@ -98,6 +104,7 @@ class UIController {
     lockSettings() {
         this.elements.mazeSize.disabled = true;
         this.elements.algorithm.disabled = true;
+        this.elements.robotAlgorithm.disabled = true;
         this.elements.startBtn.disabled = true;
         this.elements.pauseBtn.disabled = false;
         this.elements.resetBtn.disabled = false;
@@ -106,6 +113,7 @@ class UIController {
     unlockSettings() {
         this.elements.mazeSize.disabled = false;
         this.elements.algorithm.disabled = false;
+        this.elements.robotAlgorithm.disabled = false;
         this.elements.startBtn.disabled = false;
         this.elements.pauseBtn.disabled = true;
         this.elements.pauseBtn.textContent = 'Pause';
@@ -157,6 +165,7 @@ class UIController {
         return {
             mazeSize: parseInt(this.elements.mazeSize.value),
             algorithm: this.elements.algorithm.value,
+            robotAlgorithm: this.elements.robotAlgorithm.value,
             speed: parseInt(this.elements.speed.value)
         };
     }

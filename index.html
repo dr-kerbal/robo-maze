@@ -17,7 +17,7 @@
             </div>
 
             <div class="control-group">
-                <label>Algorithm:</label>
+                <label>Maze Generation Algorithm:</label>
                 <select id="algorithm">
                     <option value="prim" selected>Randomized Prim</option>
                     <option value="backtracking">Recursive Backtracking</option>
@@ -26,7 +26,17 @@
             </div>
 
             <div class="control-group">
-                <label>Speed: <span id="speed-value">5</span></label>
+                <label>Robot Pathfinding Algorithm:</label>
+                <select id="robot-algorithm">
+                    <option value="left" selected>Left-Hand Rule</option>
+                    <option value="right">Right-Hand Rule</option>
+                    <option value="forward">Forward Preference</option>
+                    <option value="random">Random Walk</option>
+                </select>
+            </div>
+
+            <div class="control-group">
+                <label>Robot Speed: <span id="speed-value">5</span></label>
                 <input type="range" id="speed" min="1" max="100" value="5">
             </div>
         </div>
@@ -67,10 +77,10 @@
                     <h3>How This Project Was Made:</h3>
                     <ul>
                         <li>📝 I wrote down all my ideas for the game (how big the maze should be, what the robot should look like, how it should move)</li>
-                        <li>🤖 I gave these ideas to an AI helper called Claude Code</li>
-                        <li>📋 Claude helped break my big idea into small, easy steps</li>
+                        <li>🤖 I discussed these ideas to an AI helper called Claude Code</li>
+                        <li>📋 Claude helped break my big idea into small, easy steps called Implementation plan</li>
                         <li>✅ We worked through each step one at a time, testing to make sure everything worked</li>
-                        <li>🔄 I kept trying the game and telling Claude what to fix until it was perfect</li>
+                        <li>🔄 I kept trying the game and telling Claude what to fix until it was the way I wanted it</li>
                         <li>💻 Made in Visual Studio Code (a program for writing code)</li>
                     </ul>
                 </div>

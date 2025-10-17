@@ -10,7 +10,7 @@ A web-based maze solver that uses the left-hand wall following algorithm to navi
   - Kruskal's Algorithm
 
 - **Intelligent Robot Pathfinding:**
-  - Left-hand wall following algorithm
+  - Four pathfinding algorithms: Left-Hand Rule, Right-Hand Rule, Forward Preference, Random Walk
   - Automatic dead-end detection
   - Real-time visual feedback
 
@@ -58,15 +58,26 @@ The application generates perfect mazes (mazes with exactly one path between any
 
 ### Robot Navigation
 
-The robot uses the **left-hand wall following** algorithm:
+The robot supports **four pathfinding algorithms**:
 
-1. **Priority order**: Left → Forward → Right → Back
-2. At each step, the robot tries to turn left first
-3. If left is blocked, it tries forward
-4. If forward is blocked, it tries right
-5. If all three are blocked, it backtracks (dead end)
+1. **Left-Hand Rule** (wall-following): Left → Forward → Right → Back
+   - Guarantees finding the exit
+   - Systematic and predictable
 
-This algorithm guarantees finding the exit in any perfect maze.
+2. **Right-Hand Rule** (wall-following): Right → Forward → Left → Back
+   - Guarantees finding the exit
+   - Mirror of left-hand rule
+
+3. **Forward Preference**: Forward → Right → Left → Back
+   - Prefers moving forward
+   - May get stuck in loops on some mazes (known limitation)
+   - Uses loop detection to escape
+
+4. **Random Walk**: Randomly chooses from available directions
+   - Unpredictable and exploratory
+   - Eventually finds exit but may take many steps
+
+Wall-following algorithms (left/right) guarantee finding the exit in any perfect maze.
 
 ## Project Structure
 
@@ -98,7 +109,8 @@ robo-maze/
 ## Controls
 
 - **Maze Size**: Set grid size (5-100)
-- **Algorithm**: Choose maze generation algorithm
+- **Maze Generation Algorithm**: Choose maze generation algorithm (Prim, Backtracking, Kruskal)
+- **Robot Pathfinding Algorithm**: Choose robot navigation strategy (Left-Hand, Right-Hand, Forward, Random)
 - **Speed**: Adjust robot speed (1=slowest, 100=fastest)
 - **Start**: Begin robot navigation
 - **Pause/Resume**: Pause and resume execution
@@ -130,8 +142,9 @@ The game tracks:
 - ✅ Kruskal's Algorithm: 4 tests
 - ✅ Robot Class: 15 tests
 - ✅ Pathfinding: 9 tests
+- ✅ Robot Algorithms: 22 tests
 
-**Total: 62 tests, all passing**
+**Total: 84 tests, all passing**
 
 ## Browser Support
 
